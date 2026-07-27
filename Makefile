@@ -107,8 +107,8 @@ clean-lint-cache:
 
 .PHONY: build-examples
 build-examples:
-	for example in $(shell find ./examples -mindepth 1 -maxdepth 1 -type d); do \
-		(cd $$example; echo Build $$example; go mod tidy; go build -o /dev/null) || exit 1; done
+	for example in $(shell find ./examples -name go.mod -exec dirname {} \; | sort); do \
+		(cd $$example; echo Build $$example; go build -o /dev/null) || exit 1; done
 
 .PHONY: update-examples
 update-examples:
